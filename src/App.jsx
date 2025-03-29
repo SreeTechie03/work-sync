@@ -33,6 +33,11 @@ import Timesheet from './pages/work/Timesheet';
 import Payments from './pages/finance/Payments';
 import Transactions from './pages/finance/Transactions';
 
+// Settings Pages
+import GeneralSettings from './pages/settings/GeneralSettings';
+import UserSettings from './pages/settings/UserSettings';
+import NotificationSettings from './pages/settings/NotificationSettings';
+
 // Home Page
 import Home from './pages/Home';
 
@@ -90,6 +95,13 @@ function App() {
                 {/* Finance */}
                 <Route path="/finance/payments" element={<Payments />} />
                 <Route path="/finance/transactions" element={<Transactions />} />
+
+                {/* Settings */}
+                <Route path="/settings/general" element={<GeneralSettings />} />
+                <Route path="/settings/security" element={<UserSettings />} />
+                <Route path="/settings/notifications" element={<NotificationSettings />} />
+
+                {/* 404 Not Found */}
               </Routes>
             </div>
           </main>

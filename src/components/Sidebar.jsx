@@ -10,7 +10,8 @@ import {
   DollarSign,
   PieChart,
   ChevronDown, 
-  ChevronUp 
+  ChevronUp,
+  Settings
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen }) => {
@@ -80,6 +81,15 @@ const Sidebar = ({ isOpen }) => {
       subItems: [
         { text: 'Payments', href: '/finance/payments' },
         { text: 'Transactions', href: '/finance/transactions' }
+      ]
+    },
+    {
+      icon: Settings,
+      text: 'Settings',
+      subItems: [
+        { text: 'General', href: '/settings/general' },
+        { text: 'Security', href: '/settings/security' },
+        { text: 'Notifications', href: '/settings/notifications' }
       ]
     }
   ];
