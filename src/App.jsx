@@ -1,48 +1,101 @@
-import React, { useState } from 'react';
-import Navbar from './components/Navbar';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
+
+// Dashboard Pages
+import AdminDashboard from './pages/AdminDashboard';
+import EmployeeDashboard from './pages/EmployeeDashboard';
+
+// Leads Pages
+import SalesLeads from './pages/leads/SalesLeads';
+import AllLeads from './pages/leads/AllLeads';
+
+// User Management Pages
+import Employees from './pages/users/Employees';
+import Admins from './pages/users/Admins';
+
+// HR Management Pages
+import HREmployees from './pages/hr/Employees';
+import Leaves from './pages/hr/Leaves';
+import Attendance from './pages/hr/Attendance';
+
+// Payroll Pages
+import StaffSalary from './pages/payroll/StaffSalary';
+import PayrollReports from './pages/payroll/Reports';
+
+// Work Management Pages
+import Projects from './pages/work/Projects';
+import Tasks from './pages/work/Tasks';
+import Timesheet from './pages/work/Timesheet';
+
+// Finance Pages
+import Payments from './pages/finance/Payments';
+import Transactions from './pages/finance/Transactions';
+
+// Home Page
+import Home from './pages/Home';
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar toggleSidebar={toggleSidebar} />
-      <Sidebar isOpen={sidebarOpen} />
-      
-      {/* Main Content */}
-      <div className="lg:ml-64 pt-16">
-        <main className="p-4">
-          <div className="p-4 bg-white rounded-lg shadow-sm">
-            <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-              Welcome to Dashboard
-            </h1>
-            <p className="text-gray-600">
-              This is your main content area. Start building your dashboard components here.
-            </p>
-            
-            {/* Example Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-              {[1, 2, 3].map((item) => (
-                <div
-                  key={item}
-                  className="p-4 bg-gray-50 rounded-lg border border-gray-200"
-                >
-                  <h3 className="text-lg font-medium text-gray-800">Card {item}</h3>
-                  <p className="text-gray-600 mt-2">
-                    This is a sample card that you can use to display your content.
-                  </p>
-                </div>
-              ))}
+    <Router>
+      <div className="flex h-screen bg-gray-50">
+        {/* Sidebar - fixed on desktop, overlay on mobile */}
+        <div className={`fixed inset-y-0 left-0 z-30 w-64 transform ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        } lg:relative lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
+          <Sidebar />
+        </div>
+        
+        {/* Main content area */}
+        <div className="flex-1 flex flex-col min-w-0">
+          {/* Navbar - fixed at top */}
+          <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+          
+          {/* Content container with proper spacing */}
+          <main className="flex-1 overflow-x-hidden overflow-y-auto pt-16 lg:ml-0">
+            <div className="p-4 md:p-6">
+              <Routes>
+                {/* Home */}
+                <Route path="/" element={<Home />} />
+                
+                {/* Dashboard */}
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+                
+                {/* Leads */}
+                <Route path="/leads/sales" element={<SalesLeads />} />
+                <Route path="/leads/leads" element={<AllLeads />} />
+                
+                {/* User Management */}
+                <Route path="/users/employees" element={<Employees />} />
+                <Route path="/users/admins" element={<Admins />} />
+                
+                {/* HR Management */}
+                <Route path="/hr/employees" element={<HREmployees />} />
+                <Route path="/hr/leaves" element={<Leaves />} />
+                <Route path="/hr/attendance" element={<Attendance />} />
+                
+                {/* Payroll */}
+                <Route path="/payroll/salary" element={<StaffSalary />} />
+                <Route path="/payroll/reports" element={<PayrollReports />} />
+                
+                {/* Work Management */}
+                <Route path="/work/projects" element={<Projects />} />
+                <Route path="/work/tasks" element={<Tasks />} />
+                <Route path="/work/timesheet" element={<Timesheet />} />
+                
+                {/* Finance */}
+                <Route path="/finance/payments" element={<Payments />} />
+                <Route path="/finance/transactions" element={<Transactions />} />
+              </Routes>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
